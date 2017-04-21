@@ -9,18 +9,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  user: any[];
+  user: any;
   repos: any[];
+  username: string;
 
   constructor(private ghs: GithubService) { 
-    this.ghs.getUser().subscribe(user => {
-      this.user = user;
+    this.user = false;
+   }
+
+  searchUser() {
+    this.ghs.updateUser(this.username);
+
+     this.ghs.getUser().subscribe(user => {
+       this.user = user;
     });
 
      this.ghs.getRepos().subscribe(repos => {
       this.repos = repos;
     });
-  }
+    }
 
   ngOnInit() {
   }
